@@ -1,0 +1,39 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>PRODUCT REVIEW SEARCH</title>
+	<meta name="description" content="Movie Recommended system">
+	<meta name="author" content="Mayank Mittal">
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body  style="background: url({% static 'img/movie.jpg' %}) no-repeat center;background-size: cover;">
+		<div class=wrap">
+			<fieldset class="fieldset">
+			<form class="search" id="inform" name="inform" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{form.media}}
+				{{form.as_p}}
+				<input type="text" class="movie" name="Movie" placeholder="Type your Favorite Movie">
+				<button type="submit" class="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+			</form>
+			</fieldset>
+		</div>
+		<fieldset class="fieldset">
+		<form id="outform" name="outform" method="GET" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{form.media}}
+			{{form.as_p}}
+			<marquee direction="left" class="review"><div style="display:flex;">{% for movie in Movie_List %}
+				<div style="padding: 0px 10px;">
+    			<img src="{{ movie.image.url }}"><br>
+				<p id="title">{{movie.Movie_title}}</p>
+				</div>
+				{% endfor %}</div>
+			</marquee>
+		</form>
+		</fieldset>
+</body>
+</html>
